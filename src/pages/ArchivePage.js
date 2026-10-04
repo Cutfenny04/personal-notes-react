@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
@@ -8,16 +8,14 @@ function ArchivePage({ notes }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get('search') || '';
 
-  const archivedNotes = useMemo(() => {
-    const currentNotes = getArchivedNotes();
-    const normalizedKeyword = keyword.trim().toLowerCase();
+const currentNotes = getArchivedNotes();
+const normalizedKeyword = keyword.trim().toLowerCase();
 
-    if (!normalizedKeyword) return currentNotes;
-
-    return currentNotes.filter((note) =>
+const archivedNotes = normalizedKeyword
+  ? currentNotes.filter((note) =>
       note.title.toLowerCase().includes(normalizedKeyword),
-    );
-  }, [notes, keyword]);
+    )
+  : currentNotes;
 
   const handleSearch = (value) => {
     if (value.trim()) {

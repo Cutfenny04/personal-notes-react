@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import NoteList from '../components/NoteList';
@@ -8,17 +8,15 @@ function HomePage({ notes }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get('search') || '';
 
-  const activeNotes = useMemo(() => {
-    const currentNotes = getActiveNotes();
-    const normalizedKeyword = keyword.trim().toLowerCase();
+const currentNotes = getActiveNotes();
+const normalizedKeyword = keyword.trim().toLowerCase();
 
-    if (!normalizedKeyword) return currentNotes;
-
-    return currentNotes.filter((note) =>
+const activeNotes = normalizedKeyword
+  ? currentNotes.filter((note) =>
       note.title.toLowerCase().includes(normalizedKeyword),
-    );
-  }, [notes, keyword]);
-
+    )
+  : currentNotes;
+  
   const handleSearch = (value) => {
     const trimmed = value.trim();
 
