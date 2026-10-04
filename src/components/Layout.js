@@ -8,7 +8,7 @@ function Layout({ children }) {
         <div className="header-inner">
           <Link to="/" className="brand">
             <span className="brand-mark"></span>
-            <span>Ruang Catatan</span>
+            <span >Ruang Catatan</span>
           </Link>
 
           <nav className="main-nav" aria-label="Navigasi utama">
